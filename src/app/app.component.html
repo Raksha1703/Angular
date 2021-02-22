@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+  
+  <span [ngClass]="{'red':color === 'red','green':color === 'green'}">hii!! {{color}}</span>
+  <table class="table table-bordered">
+    <tr>
+      <th scope="row">id</th>
+      <th >name</th>
+      <th>category</th>       
+    </tr>
+    <tr *ngFor="let item of obj; index as i;">
+      <td scope="row">{{item.id}}</td>
+      <td >{{item.name}}</td>
+      <td>{{item.category}}</td>
+    </tr>
+  </table>
+  <input [(ngModel)]="name" />
+  <input [(ngModel)]="category" />
+  <button (click)="adddata()">Save</button>
+  <h1>{{name}}</h1>
+  <button (click)="colorfn()">Change</button>
+</div> 
+</div>
+

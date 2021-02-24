@@ -1,61 +1,97 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  </div>
+  <div class="card-body">
+    <input
+      [(ngModel)]="search"
+      (keyup)="getemployee()"
+      type="text"
+      name="serach"
+      placeholder="search here"
+    />
+    <!-- {{search}} -->
+
+    <div *ngIf="loading; else notExpression">
+      <div class="fancy-spinner">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="dot"></div>
+      </div>
     </div>
-    <div class="card-body">
-        <input [(ngModel)]="search" (keyup)="getemployee()" type="text" name="serach" placeholder="search here" >
-        <!-- {{search}} -->
-        
-          <div *ngIf="loading; else notExpression">
-            <div class="fancy-spinner">
-                <div class="ring"></div>
-                <div class="ring"></div>
-                <div class="dot"></div>
-              </div>
-          </div>
-          <ng-template #notExpression>
-            <div>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Id</th>                                   
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr  *ngFor="let emp of employees; index as i;">
-                                <td>{{emp.id}}</td>
-                                <td>{{emp.name}}</td>
-                                <td>{{emp.position}}</td>
-                                <td>{{emp.office}}</td>
-                                <td>{{emp.age}}</td>
-                                <td>{{emp.startdate}}</td>
-                                <td>{{emp.salary}}</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-          </ng-template>
-        
-    </div>
+    <ng-template #notExpression>
+      <div>
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr *ngFor="let emp of employees; index as i">
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.position }}</td>
+                <td>{{ emp.office }}</td>
+                <td>{{ emp.age }}</td>
+                <td>{{ emp.startdate }}</td>
+                <td>{{ emp.salary }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+    <form  >
+      <div>
+        <label for="name"> Name </label>
+        <input name="name" type="text" [(ngModel)]="name" placeholder="Name"/>
+      </div>
+      <div>
+        <label for="position"> Position </label>
+        <input name="position" type="text" [(ngModel)]="position" placeholder="Position"/>
+      </div>
+      <div>
+        <label for="office"> office </label>
+        <input name="office" type="text" [(ngModel)]="office" placeholder="office"/>
+      </div>
+      <div>
+        <label for="age"> Age </label>
+        <input name="age" type=number [(ngModel)]="age" placeholder="Age"/>
+      </div>
+      <div>
+        <label for="startdate"> Start Date </label>
+        <input name="startdate" type=date [(ngModel)]="startdate" placeholder="Date"/>
+      </div>
+      <div>
+        <label for="salary"> Salary </label>
+        <input name="salary" type=number [(ngModel)]="salary" placeholder="Salary"/>
+      </div>
+      <button class="button" type="submit" (click)="addemployee()">Create</button>
+    </form>
+  </div>
 </div>

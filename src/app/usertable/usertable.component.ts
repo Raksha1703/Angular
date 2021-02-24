@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
- 
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-usertable',
   templateUrl: './usertable.component.html',
@@ -9,6 +9,12 @@ import { HttpClient } from '@angular/common/http';
 export class UsertableComponent implements OnInit {
   employees:any = [];
   search = "";
+  name ="";
+  position = "";
+  office  = "";
+  age;
+  startdate;
+  salary;
   loading = true;
   pagination = "";
   page = 1;
@@ -41,4 +47,25 @@ export class UsertableComponent implements OnInit {
     this.namechange(obj);
     this.namechange();
   };
+  addemployee(){
+    let data ={      
+      name:this.name,
+      position:this.position,
+      office:this.office,
+      age:this.age,
+      startdate:this.startdate,
+      salary:this.salary   
+    };
+    console.log(data);
+    this.http.post<any>("http://127.0.0.1:8000/api/employees",data).subscribe(resp=> {   
+     console.log(resp);
+     this.name = this.position = this.age = this.office =this.startdate = this.salary = "";
+     this.getemployee();
+    },error=>{
+      console.log(error);     
+    })
+  };
+  updateemployee(){};
+  deleteemployee(){};
+
 }

@@ -38,6 +38,7 @@
                 <th>Age</th>
                 <th>Start date</th>
                 <th>Salary</th>
+                <th>Action</th>                
               </tr>
             </thead>
             <tfoot>
@@ -49,6 +50,7 @@
                 <th>Age</th>
                 <th>Start date</th>
                 <th>Salary</th>
+                <th>Action</th>                
               </tr>
             </tfoot>
             <tbody>
@@ -60,6 +62,10 @@
                 <td>{{ emp.age }}</td>
                 <td>{{ emp.startdate }}</td>
                 <td>{{ emp.salary }}</td>
+                <td>
+                  <button class="button" type="submit" (click)="updateemployee(emp)">Edit</button>
+                  <button class="button" type="submit" (click)="deleteemployee(emp.id)">Delete</button>                  
+                </td>
               </tr>
             </tbody>
           </table>
@@ -91,7 +97,7 @@
         <label for="salary"> Salary </label>
         <input name="salary" type=number [(ngModel)]="salary" placeholder="Salary"/>
       </div>
-      <button class="button" type="submit" (click)="addemployee()">Create</button>
+      <button class="button" type="submit" (click)="addemployee()">Submit</button>
     </form>
   </div>
 </div>

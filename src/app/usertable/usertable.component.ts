@@ -65,7 +65,16 @@ export class UsertableComponent implements OnInit {
       console.log(error);     
     })
   };
-  updateemployee(){};
-  deleteemployee(){};
+  updateemployee(emp){
+    console.log();
+  };
+  deleteemployee(id){
+    let url="http://127.0.0.1:8000/api/employees/";
+    this.http.delete(url+id)
+    .subscribe(resp => {
+      console.log(resp);
+     this.getemployee();
+    });
+  };
 
 }

@@ -1,18 +1,14 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Employee Data</h6>
   </div>
   <div class="card-body">
-    <input
-      [(ngModel)]="search"
-      (keyup)="getemployee()"
-      type="text"
-      name="serach"
-      placeholder="search here"
-    />
-    <!-- {{search}} -->
-
+    <div class="float-right ">
+      <label for="search" class="mr-2 mb-3"> Search </label>
+      <input [(ngModel)]="search" (keyup)="getemployee()" type="text" name="serach" placeholder="search here"/>
+    </div>
+        <!-- {{search}} -->
     <div *ngIf="loading; else notExpression">
       <div class="fancy-spinner">
         <div class="ring"></div>
@@ -24,12 +20,11 @@
       <div>
         <div class="table-responsive">
           <table
-            class="table table-bordered"
+            class="table table-bordered table-hover "
             id="dataTable"
             width="100%"
-            cellspacing="0"
-          >
-            <thead>
+            cellspacing="0">
+            <thead  class="thead-light">
               <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -41,7 +36,7 @@
                 <th>Action</th>                
               </tr>
             </thead>
-            <tfoot>
+            <tfoot  class="thead-light">
               <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -63,8 +58,8 @@
                 <td>{{ emp.startdate }}</td>
                 <td>{{ emp.salary }}</td>
                 <td>
-                  <button class="button" type="submit" (click)="updateemployee(emp)">Update</button>
-                  <button class="button" type="submit" (click)="deleteemployee(emp.id)">Delete</button>                  
+                  <button class="btn btn-outline-primary mr-2" type="button" (click)="updateemployee(emp)">Update</button>
+                  <button class="btn btn-outline-danger" type="button" (click)="deleteemployee(emp.id)">Delete</button>                  
                 </td>
               </tr>
             </tbody>
@@ -72,33 +67,40 @@
         </div>
       </div>
     </ng-template>
-    <form  >
-      <div>
-        <label for="name"> Name </label>
-        <input name="name" type="text" [(ngModel)]="name" placeholder="Name"/>
-      </div>
-      <div>
-        <label for="position"> Position </label>
-        <input name="position" type="text" [(ngModel)]="position" placeholder="Position"/>
-      </div>
-      <div>
-        <label for="office"> office </label>
-        <input name="office" type="text" [(ngModel)]="office" placeholder="office"/>
-      </div>
-      <div>
-        <label for="age"> Age </label>
-        <input name="age" type=number [(ngModel)]="age" placeholder="Age"/>
-      </div>
-      <div>
-        <label for="startdate"> Start Date </label>
-        <input name="startdate" type=date [(ngModel)]="startdate" placeholder="Date"/>
-      </div>
-      <div>
-        <label for="salary"> Salary </label>
-        <input name="salary" type=number [(ngModel)]="salary" placeholder="Salary"/>
-      </div>
-      <button class="button" type="submit" (click)="addemployee()">Submit</button>
-      <button class="button" type="submit" (click)="editemployee()">Edit</button>
-    </form>
+    <div class="container">
+      <div class="offset-sm-1">
+        <form>
+          <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label"> Name </label>
+            <input name="name" class="col-sm-10 form-control" type="text" [(ngModel)]="name" placeholder="Name"/>
+          </div>
+          <div class="form-group row">
+            <label for="position" class="col-sm-2 col-form-label"> Position </label>
+            <input name="position" class="col-sm-10 form-control" type="text" [(ngModel)]="position" placeholder="Position"/>
+          </div>
+          <div class="form-group row">
+            <label for="office" class="col-sm-2 col-form-label"> office </label>
+            <input name="office" class="col-sm-10 form-control" type="text" [(ngModel)]="office" placeholder="office"/>
+          </div>
+          <div class="form-group row">
+            <label for="age" class="col-sm-2 col-form-label"> Age </label>
+            <input name="age" class="col-sm-10 form-control" type=number [(ngModel)]="age" placeholder="Age"/>
+          </div>
+          <div class="form-group row">
+            <label for="startdate" class="col-sm-2 col-form-label"> Start Date </label>
+            <input name="startdate" class="col-sm-10 form-control" type=date [(ngModel)]="startdate" placeholder="Date"/>
+          </div>
+          <div class="form-group row">
+            <label for="salary" class="col-sm-2 col-form-label"> Salary </label>
+            <input name="salary" class="col-sm-10 form-control" type=number [(ngModel)]="salary" placeholder="Salary"/>
+          </div>
+          <div class="mx-auto" style="width: 200px;">
+            <button class="btn btn-outline-primary mr-2" type="button" *ngIf="mode=='save'" (click)="addemployee()">Save</button>
+            <button class="btn btn-outline-primary mr-2"  type="button" *ngIf="mode!='save'" (click)="editemployee()">Edit</button>
+            <button class="btn btn-outline-primary"  type="button"  (click)="cancleemployee()">Cancle</button>
+          </div>
+        </form>
+      </div>     
+    </div>    
   </div>
 </div>

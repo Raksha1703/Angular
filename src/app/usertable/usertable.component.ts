@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 @Component({
   selector: 'app-usertable',
   templateUrl: './usertable.component.html',
@@ -8,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsertableComponent implements OnInit {
   employees: any = [];
-  
+  url = 'http://127.0.0.1:8000/api/employees/';
   search = '';
   id = 0;
   name = '';
@@ -20,13 +19,13 @@ export class UsertableComponent implements OnInit {
   loading = true;
   pagination = '';
   page = 1;
+  mode = "save";
   constructor(private http: HttpClient) {}
-
   ngOnInit(): void {
     this.namechange();
   }
   namechange(obj = '') {
-    this.http.get<any>('http://127.0.0.1:8000/api/employees?' + obj).subscribe(
+    this.http.get<any>(this.url + obj).subscribe(
       (resp) => {
         this.employees = resp.employee.data;
         this.pagination = resp.employee.link;
@@ -38,15 +37,7 @@ export class UsertableComponent implements OnInit {
         this.loading = true;
       }
     );
-  }
-  next() {
-    this.page = this.page + 1;
-    this.namechange();
-  }
-  pre() {
-    this.page = this.page - 1;
-    this.namechange();
-  }
+  }  
   getemployee() {
     let obj = `name=${this.search}`;
     this.namechange(obj);
@@ -62,10 +53,10 @@ export class UsertableComponent implements OnInit {
       salary: this.salary,
     };
     console.log(data);
-    this.http.post<any>('http://127.0.0.1:8000/api/employees', data).subscribe(
+    this.http.post<any>(this.url, data).subscribe(
       (resp) => {
         console.log(resp);
-        this.name = this.position = this.age = this.office = this.startdate = this.salary ='';
+        this.cleardata();
         this.getemployee();
       },
       (error) => {
@@ -81,6 +72,7 @@ export class UsertableComponent implements OnInit {
     this.office = emp.office;
     this.startdate = new Date(emp.startdate);
     this.salary = emp.salary;
+    this.mode="edit";
   }
   editemployee() {
     let data = {
@@ -92,19 +84,25 @@ export class UsertableComponent implements OnInit {
       salary: this.salary,
     };
     this.http
-      .put<any>('http://127.0.0.1:8000/api/employees/'+this.id,data)
+      .put<any>(this.url+this.id,data)
       .subscribe((resp) => {
         console.log(resp);
-        this.name = this.position = this.age = this.office = this.startdate = this.salary =
-          '';
+        this.cleardata();
+        this.mode='save';
         this.getemployee();
       });
   }
-  deleteemployee(id) {
-    let url = 'http://127.0.0.1:8000/api/employees/';
-    this.http.delete(url + id).subscribe((resp) => {
+  deleteemployee(id) {    
+    this.http.delete(this.url + id).subscribe((resp) => {
       console.log(resp);
       this.getemployee();
     });
+  }
+  cancleemployee(){
+    this.mode="save";
+    this.cleardata();
+  }
+  cleardata(){
+    this.name = this.position = this.age = this.office = this.startdate = this.salary = '';
   }
 }
